@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Carros</string>
+    <string name="nome_carro">Carro</string>
+    <string name="marca_carro">Fabricante</string>
+    <string name="cadastrar_carro">Cadastrar</string>
+    <string name="sucesso">Cadastro realizado com sucesso.</string>
+    <string name="error">Erro ao fazer o cadastro.</string>
+</resources>
