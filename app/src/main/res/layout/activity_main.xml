@@ -32,4 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/cadastrar_carro"/>
+    <Button
+        android:id="@+id/btnListarCarro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lista_de_carro"/>
 </LinearLayout>

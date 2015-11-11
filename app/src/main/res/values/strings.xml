@@ -5,4 +5,8 @@
     <string name="cadastrar_carro">Cadastrar</string>
     <string name="sucesso">Cadastro realizado com sucesso.</string>
     <string name="error">Erro ao fazer o cadastro.</string>
+    <string name="lista_carros">Listagem de carros</string>
+    <string name="listar_carros">Listar carros</string>
+    <string name="zero_registros">Nenhum registro encontrado.</string>
+    <string name="lista_de_carro">Ver carros</string>
 </resources>
