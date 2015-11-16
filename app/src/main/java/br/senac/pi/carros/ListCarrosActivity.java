@@ -63,7 +63,6 @@ public class ListCarrosActivity extends AppCompatActivity {
                 Carro carro = new Carro();
                 carro.setId(itemSelecionado);
                 carrosDB.delete(carro);
-                listView.invalidate();
             }
         };
     }
