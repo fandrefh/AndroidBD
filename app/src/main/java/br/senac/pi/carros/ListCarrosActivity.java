@@ -1,5 +1,6 @@
 package br.senac.pi.carros;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -58,11 +59,27 @@ public class ListCarrosActivity extends AppCompatActivity {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long itemSelecionado = id;
-                Log.i("carro", "ID do item Selecionado: " + itemSelecionado);
-                Carro carro = new Carro();
-                carro.setId(itemSelecionado);
-                carrosDB.delete(carro);
+                final long itemSelecionado = id;
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListCarrosActivity.this);
+                builder.setTitle("Pergunta");
+                builder.setMessage("O que deseja fazer?");
+                builder.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(ListCarrosActivity.this, "Clicou em Editar", Toast.LENGTH_LONG).show();
+                    }
+                });
+                builder.setNegativeButton("Deletar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Log.i("carro", "ID do item Selecionado: " + itemSelecionado);
+                        Carro carro = new Carro();
+                        carro.setId(itemSelecionado);
+                        carrosDB.delete(carro);
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         };
     }
