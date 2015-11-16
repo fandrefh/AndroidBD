@@ -1,12 +1,15 @@
 package br.senac.pi.carros;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -33,6 +36,8 @@ public class ListCarrosActivity extends AppCompatActivity {
         carrosDB = new CarrosDB(this);
         database = carrosDB.getWritableDatabase();
         findViewById(R.id.btnListarCarros).setOnClickListener(listarCarros());
+        //Chama Listener de delete
+        listView.setOnItemClickListener(deletarItem());
     }
     private View.OnClickListener listarCarros() {
         return new View.OnClickListener() {
@@ -45,6 +50,20 @@ public class ListCarrosActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ListCarrosActivity.this, getString(R.string.zero_registros), Toast.LENGTH_LONG).show();
                 }
+            }
+        };
+    }
+    //Responsável por recuperar o item do banco pelo ID e fazer o delete
+    private AdapterView.OnItemClickListener deletarItem() {
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                long itemSelecionado = id;
+                Log.i("carro", "ID do item Selecionado: " + itemSelecionado);
+                Carro carro = new Carro();
+                carro.setId(itemSelecionado);
+                carrosDB.delete(carro);
+                listView.invalidate();
             }
         };
     }
