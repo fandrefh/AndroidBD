@@ -3,6 +3,7 @@ package br.senac.pi.carros;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -60,13 +61,22 @@ public class ListCarrosActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final long itemSelecionado = id;
+                final int posicao = position;
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListCarrosActivity.this);
                 builder.setTitle("Pergunta");
                 builder.setMessage("O que deseja fazer?");
                 builder.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(ListCarrosActivity.this, "Clicou em Editar", Toast.LENGTH_LONG).show();
+                        String codigo;
+                        Carro c = new Carro();
+                        Cursor carro = database.query("carro", campos, null, null, null, null, null);
+                        carro.moveToPosition(posicao);
+                        codigo = carro.getString(carro.getColumnIndexOrThrow("_id"));
+                        Intent intent = new Intent(getApplicationContext(), AlteraCarroActivity.class);
+                        intent.putExtra("id", codigo);
+                        startActivity(intent);
+                        finish();
                     }
                 });
                 builder.setNegativeButton("Deletar", new DialogInterface.OnClickListener() {
@@ -76,6 +86,7 @@ public class ListCarrosActivity extends AppCompatActivity {
                         Carro carro = new Carro();
                         carro.setId(itemSelecionado);
                         carrosDB.delete(carro);
+                        listView.invalidateViews();
                     }
                 });
                 AlertDialog dialog = builder.create();
